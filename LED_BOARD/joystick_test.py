@@ -19,11 +19,18 @@ for i in range(3):
     
 led.value(1)
 
+version = input("New or old socket?")
 
-analog_value1 = machine.ADC(26)
-analog_value2 = machine.ADC(27)
+if version == "old":
+    analog_value1 = machine.ADC(26)
+    analog_value2 = machine.ADC(27)
+    button = Pin(8, Pin.IN, Pin.PULL_UP)
+else:
+    analog_value1 = machine.ADC(28)
+    analog_value2 = machine.ADC(28)
+    button = Pin(1, Pin.IN, Pin.PULL_UP)
 np = neopixel.NeoPixel(machine.Pin(11), 50)
-button = Pin(8, Pin.IN, Pin.PULL_UP)
+button = Pin(1, Pin.IN, Pin.PULL_UP)
 beep = Pin(16, Pin.OUT)
 #selectedmap[user1][user2] = random.randomint(0,49) 
 
@@ -70,13 +77,23 @@ np.write()
 
 #np.write()
 
+# a = 1
+# 
+# while True:
+#     a = a + 1
+#     np.fill((a, a, a))
+#     np.write()
+#     utime.sleep(0.05)
+#     if a == 255:
+#         a = 0
+
 
 while True:
     np.fill((0,0,0))
     np.write()
     reading1 = analog_value1.read_u16()
     reading2 = analog_value2.read_u16()
-    print(reading1, "<- read1", reading2, "<- read2")
+    print(reading1, "<- read1", reading2, "<- read2", button.value(), "<- button")
     user1 = (65535-reading1) // 6554
     user2 = (65535-reading2) // 13108
     np[map[user1][user2]] = (122,0,0)
