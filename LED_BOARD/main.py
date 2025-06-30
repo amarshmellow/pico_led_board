@@ -83,8 +83,24 @@ np.write()
 #     print("user1:", reading1, "user2:", reading2, "button:", button.value())
 #     utime.sleep(0.2)
 
+# BUTTONS =  BLUE, YELLOW, WHITE, RED, GREEN, BLACK
+# FUNCTS  = 
+inputs = [
+    Pin(6, Pin.IN, Pin.PULL_UP),  # ARRAY 0 
+    Pin(7, Pin.IN, Pin.PULL_UP),  # ARRAY 1
+    Pin(9, Pin.IN, Pin.PULL_UP),  # ARRAY 2
+    Pin(10, Pin.IN, Pin.PULL_UP), # ARRAY 3
+    Pin(18, Pin.IN, Pin.PULL_UP), # ARRAY 4
+    Pin(19, Pin.IN, Pin.PULL_UP)  # ARRAY 5 
+]
 
-utime.sleep(0)
+while True:
+    print("PIN =", inputs[5].value())
+    utime.sleep(0.1)
+
+
+
+utime.sleep(1000)
 
 while True:
     
