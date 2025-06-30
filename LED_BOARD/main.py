@@ -101,11 +101,24 @@ while True:
     wintimer = 5
     losetimer = 150
     LEDSGOT = 0
+    
     while button.value() == 1:
+        if inputs[1].value() == 0: # IF BLACK PRESSED, HIGHSCORE = 0
+            scores["hi-score"] = 0
+            write_scores()
+            lcd.clear()
+            lcd.setCursor(0,0)
+            lcd.printout("HIGH SCORE = 0")
         pass
     
     while True:
-        printtimer = losetimer //5 
+        if inputs[5].value() == 0: # IF RED PRESSED, BREAK MAIN GAME LOOP
+            break
+        printtimer = losetimer //5
+        lcd.setCursor(0,0)
+        lcd.print_lcd("SCORE:" + str(LEDSGOT))
+        lcd.setCursor(0,1)
+        lcd.printout("HIGH SCORE:" + str(scores["hi-score"]))
         lcd.setCursor(14,0)
         lcd.printout(f"{printtimer:02d}")
         
@@ -179,4 +192,3 @@ while True:
 
 
 beep.value(0)
-
