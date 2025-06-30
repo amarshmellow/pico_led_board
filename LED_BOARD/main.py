@@ -7,23 +7,22 @@ import LCD1602
 import json
 
 from machine import Pin, Timer
-led = Pin(25, Pin.OUT)	
+led = Pin(25, Pin.OUT)
 
-led.value(0)
+led.value(1)
 
 for i in range(3):
-    led.value(1)
-    utime.sleep(0.1)
     led.value(0)
+    utime.sleep(0.1)
+    led.value(1)
     utime.sleep(0.1)
     
 led.value(1)
 
-utime.sleep(1000)
 
 analog_value1 = machine.ADC(26)
 analog_value2 = machine.ADC(27)
-np = neopixel.NeoPixel(machine.Pin(1), 50)
+np = neopixel.NeoPixel(machine.Pin(11), 50)
 button = Pin(8, Pin.IN, Pin.PULL_UP)
 beep = Pin(16, Pin.OUT)
 #selectedmap[user1][user2] = random.randomint(0,49) 
@@ -64,21 +63,28 @@ map = [[0,1,2,3,4],
        [40,41,42,43,44],
        [49,48,47,46,45]]
 
+np.fill((0,0,0))
+np.write()
+
 #np[map[2][2]] = (122,0,0)
 
 #np.write()
 
 
 # while True:
-  #  np.fill((0,0,0))
-   # np.write()
-    #reading1 = analog_value1.read_u16()
-    #reading2 = analog_value2.read_u16()
-    
-   # np[map[user1 // 6554][user2 // 13108]] = (122,0,0)
-   # np.write()
+#     np.fill((0,0,0))
+#     np.write()
+#     reading1 = analog_value1.read_u16()
+#     reading2 = analog_value2.read_u16()
+#     user1 = (65535-reading1) // 6554
+#     user2 = (65535-reading2) // 13108
+#     np[map[5][user2]] = (122,0,0)
+#     np.write()
+#     print("user1:", reading1, "user2:", reading2, "button:", button.value())
+#     utime.sleep(0.2)
 
 
+utime.sleep(0)
 
 while True:
     
@@ -86,12 +92,10 @@ while True:
     wintimer = 5
     losetimer = 150
     LEDSGOT = 0
-    
     while button.value() == 1:
         pass
     
     while True:
-        
         printtimer = losetimer //5 
         lcd.setCursor(14,0)
         lcd.printout(f"{printtimer:02d}")
@@ -99,10 +103,8 @@ while True:
         reading1 = analog_value1.read_u16()
         reading2 = analog_value2.read_u16()
         
-        
-        
-        user1 = reading1 // 6554
-        user2 = reading2 // 13108
+        user1 = (65535-reading1) // 6554
+        user2 = (65535-reading2) // 13108
         
         np.fill((0,0,0))
         
@@ -168,6 +170,4 @@ while True:
 
 
 beep.value(0)
-    
-
 
